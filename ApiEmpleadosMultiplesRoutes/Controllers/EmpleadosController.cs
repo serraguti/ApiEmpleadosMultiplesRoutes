@@ -16,6 +16,7 @@ namespace ApiEmpleadosMultiplesRoutes.Controllers
             this.repo = repo;
         }
 
+        //api/Empleados
         [HttpGet]
         public ActionResult<List<Empleado>> GetEmpleados()
         {
@@ -23,11 +24,38 @@ namespace ApiEmpleadosMultiplesRoutes.Controllers
             return empleados;
         }
 
+        //api/Empleados/99
         [HttpGet("{id}")]
         public ActionResult<Empleado> FindEmpleado(int id)
         {
             Empleado empleado = this.repo.FindEmpleado(id);
             return empleado;
+        }
+
+        //api/empleados/oficios
+        [HttpGet]
+        [Route("[action]")]
+        public ActionResult<List<string>> Oficios()
+        {
+            List<string> oficios = this.repo.GetOficios();
+            return oficios;
+        }
+        
+        //api/empleados/empleadosoficio/DIRECTOR
+        [HttpGet]
+        [Route("[action]/{oficio}")]
+        public ActionResult<List<Empleado>> EmpleadosOficio(string oficio)
+        {
+            List<Empleado> empleados = this.repo.GetEmpleadosOficio(oficio);
+            return empleados;
+        }
+
+        [HttpGet]
+        [Route("[action]/{salario}")]
+        public ActionResult<List<Empleado>> EmpleadosSalario(int salario)
+        {
+            List<Empleado> empleados = this.repo.GetEmpleadosSalario(salario);
+            return empleados;
         }
     }
 }
